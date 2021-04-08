@@ -16,5 +16,5 @@ services:
     environment:
       - POSTGRES_PASSWORD=123456
     volumes:
-      - ./datadir:/var/lib/postgresql/data
+      - ./.docker-cache/datadir:/var/lib/postgresql/data
       - ./db-initialize.sql:/docker-entrypoint-initdb.d/1.sql

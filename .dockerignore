@@ -1,4 +1,8 @@
+.docker-cache
 .env
-.idea/
-datadir/
+.env.dist
+.gitignore
+.idea
 venv
+Dockerfile
+README.md
