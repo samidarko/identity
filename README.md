@@ -16,13 +16,6 @@ Edit accordingly to change the SECRET value. DATABASE_URL should work out the bo
 
 Create postgresql data directory: `mkdir .docker-cache/datadir`
 
-Note: 
-After first start permissions have changed and I faced the following error when building.
-
-    error checking context: 'can't stat '/home/user/workspace/identity/datadir''.
-
-I solved it with `sudo chmod 750 datadir`
-
 ### Start
 
 ```shell

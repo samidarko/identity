@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api:
-    image: identity
+    image: samidarko/identity
     ports:
       - "8000:8000"
     env_file: .env
