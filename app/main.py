@@ -1,4 +1,4 @@
-import os
+from environs import Env
 from fastapi import FastAPI
 from fastapi_users import FastAPIUsers
 from fastapi_users.authentication import JWTAuthentication
@@ -7,8 +7,12 @@ from tortoise.contrib.fastapi import register_tortoise
 from callbacks import *
 from models import *
 
-DATABASE_URL = os.environ.get("DATABASE_URL", "postgres://localhost/identity")
-SECRET = os.environ.get("SECRET", "SECRET")
+env = Env()
+
+DATABASE_URL = env("DATABASE_URL", "postgres://localhost/identity")
+SECRET = env("SECRET", "SECRET")
+JWT_LIFETIME = env.int("JWT_LIFETIME", 3600)
+# log_level = env.log_level("LOG_LEVEL")
 
 
 app = FastAPI(
