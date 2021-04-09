@@ -3,12 +3,10 @@
 FROM python:3.9.4-slim
 
 ENV PYTHONUNBUFFERED 1
-WORKDIR /code
+WORKDIR /app
 
-COPY ./callbacks.py ./callbacks.py
-COPY ./main.py ./main.py
-COPY ./models.py ./models.py
-COPY ./requirements.txt ./requirements.txt
+COPY ./app /app
+COPY ./requirements.txt /app/requirements.txt
 
 RUN apt-get update
 RUN apt-get install -y build-essential \
@@ -17,5 +15,4 @@ RUN apt-get install -y build-essential \
 
 RUN pip install -r requirements.txt
 
-
-ENTRYPOINT [ "uvicorn", "--host", "0.0.0.0", "main:app" ]
+ENTRYPOINT [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000" ]
