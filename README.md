@@ -24,4 +24,5 @@ $ make up
 
 ## todo
   - [ ] migration
+  - [ ] logger
 
