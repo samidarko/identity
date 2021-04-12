@@ -14,6 +14,15 @@ SECRET = env("SECRET", "SECRET")
 JWT_LIFETIME = env.int("JWT_LIFETIME", 3600)
 # log_level = env.log_level("LOG_LEVEL")
 
+TORTOISE_ORM = {
+    "connections": {"default": DATABASE_URL},
+    "apps": {
+        "models": {
+            "models": ["models", "aerich.models"],
+            "default_connection": "default",
+        },
+    },
+}
 
 app = FastAPI(
     title="Identity",
@@ -22,9 +31,9 @@ app = FastAPI(
 )
 register_tortoise(
     app,
-    db_url=DATABASE_URL,
-    modules={"models": ["models"]},
-    generate_schemas=True,
+    config=TORTOISE_ORM,
+    generate_schemas=False,
+    add_exception_handlers=False,
 )
 
 

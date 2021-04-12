@@ -1,3 +1,5 @@
+aerich_upgrade:
+	docker-compose run --rm web aerich upgrade
 docker_build:
 	docker build -t samidarko/identity .
 docker_push_latest:
