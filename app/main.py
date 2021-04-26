@@ -1,5 +1,6 @@
 from environs import Env
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_users import FastAPIUsers
 from fastapi_users.authentication import JWTAuthentication
 from tortoise.contrib.fastapi import register_tortoise
@@ -13,6 +14,11 @@ DATABASE_URL = env("DATABASE_URL", "postgres://localhost/identity")
 SECRET = env("SECRET", "SECRET")
 JWT_LIFETIME = env.int("JWT_LIFETIME", 3600)
 # log_level = env.log_level("LOG_LEVEL")
+
+CORS_ALLOW_ORIGINS = env.list("CORS_ALLOW_ORIGINS", [])
+CORS_ALLOW_CREDENTIALS = env.bool("CORS_ALLOW_CREDENTIALS ", True)
+CORS_ALLOW_METHODS = env.list("CORS_ALLOW_METHODS", ["*"])
+CORS_ALLOW_HEADERS = env.list("CORS_ALLOW_HEADERS", ["*"])
 
 TORTOISE_ORM = {
     "connections": {"default": DATABASE_URL},
@@ -29,6 +35,15 @@ app = FastAPI(
     description="A micro-service to manage users and authentication",
     version="0.1.0",
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=CORS_ALLOW_ORIGINS,
+    allow_credentials=CORS_ALLOW_CREDENTIALS,
+    allow_methods=CORS_ALLOW_METHODS,
+    allow_headers=CORS_ALLOW_HEADERS,
+)
+
 register_tortoise(
     app,
     config=TORTOISE_ORM,
