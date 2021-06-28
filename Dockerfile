@@ -15,4 +15,5 @@ RUN apt-get install -y build-essential \
 
 RUN pip install -r requirements.txt
 
-CMD [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000" ]
+ENTRYPOINT [ "uvicorn", "main:app", "--host", "0.0.0.0"]
+CMD ["--port", "8000"]

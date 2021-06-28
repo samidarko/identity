@@ -17,6 +17,10 @@ services:
     image: postgres:13
     environment:
       - POSTGRES_PASSWORD=123456
+      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - ./.docker-cache/datadir:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data/pgdata
       - ./db-initialize.sql:/docker-entrypoint-initdb.d/1.sql
+
+volumes:
+  db-data:
