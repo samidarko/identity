@@ -6,8 +6,6 @@ from config import *
 from users import fastapi_users, jwt_authentication
 
 
-
-
 TORTOISE_ORM = {
     "connections": {"default": DATABASE_URL},
     "apps": {

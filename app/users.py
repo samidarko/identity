@@ -1,7 +1,7 @@
-from typing import Optional
+from typing import Optional, Union
 
 from fastapi import Depends, Request
-from fastapi_users import BaseUserManager, FastAPIUsers
+from fastapi_users import BaseUserManager, FastAPIUsers, InvalidPasswordException
 from fastapi_users.authentication import JWTAuthentication
 from fastapi_users.db import TortoiseUserDatabase
 
@@ -27,6 +27,16 @@ class UserManager(BaseUserManager[UserCreate, UserDB]):
         self, user: UserDB, token: str, request: Optional[Request] = None
     ):
         print(f"Verification requested for user {user.id}. Verification token: {token}")
+
+    async def validate_password(
+        self,
+        password: str,
+        user: Union[UserCreate, UserDB],
+    ) -> None:
+        if len(password) < MIN_LEN_PWD:
+            raise InvalidPasswordException(
+                reason="Password should be at least 8 characters"
+            )
 
 
 def get_user_manager(user_db: TortoiseUserDatabase = Depends(get_user_db)):
