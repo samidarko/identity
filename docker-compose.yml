@@ -1,12 +1,10 @@
-version: '3'
+version: "3.3"
 
 services:
   web:
     image: samidarko/identity
     ports:
       - "8001:8000"
-#    volumes:
-#      - .:/app
     env_file: .env
     depends_on:
       - db

@@ -5,13 +5,12 @@ FROM python:3.9.4-slim
 ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
+RUN apt-get update \
+  && apt-get install -y build-essential
+
 COPY ./app /app
 COPY ./requirements.txt /app/requirements.txt
 
-RUN apt-get update
-RUN apt-get install -y build-essential \
-            iputils-ping \
-            telnet
 
 RUN pip install -r requirements.txt
 

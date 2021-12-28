@@ -1,0 +1,10 @@
+version: "3.3"
+
+services:
+  web:
+    image: samidarko/identity
+    command: ["--port", "8000", "--reload"]
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./app:/app

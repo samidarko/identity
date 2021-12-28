@@ -30,21 +30,45 @@ app.add_middleware(
     allow_headers=CORS_ALLOW_HEADERS,
 )
 
-app.include_router(
-    fastapi_users.get_auth_router(jwt_authentication), prefix="/auth/jwt", tags=["auth"]
-)
-app.include_router(fastapi_users.get_register_router(), prefix="/auth", tags=["auth"])
-app.include_router(
-    fastapi_users.get_reset_password_router(),
-    prefix="/auth",
-    tags=["auth"],
-)
-app.include_router(
-    fastapi_users.get_verify_router(),
-    prefix="/auth",
-    tags=["auth"],
-)
-app.include_router(fastapi_users.get_users_router(), prefix="/users", tags=["users"])
+if ROUTER_AUTH_INCLUDE:
+    app.include_router(
+        fastapi_users.get_auth_router(jwt_authentication),
+        prefix=ROUTER_AUTH_PREFIX,
+        tags=ROUTER_AUTH_TAGS,
+        include_in_schema=ROUTER_AUTH_INCLUDE_IN_SCHEMA,
+    )
+
+if ROUTER_REGISTER_INCLUDE:
+    app.include_router(
+        fastapi_users.get_register_router(),
+        prefix=ROUTER_REGISTER_PREFIX,
+        tags=ROUTER_REGISTER_TAGS,
+        include_in_schema=ROUTER_REGISTER_INCLUDE_IN_SCHEMA,
+    )
+
+if ROUTER_RESET_PASSWORD_INCLUDE:
+    app.include_router(
+        fastapi_users.get_reset_password_router(),
+        prefix=ROUTER_RESET_PASSWORD_PREFIX,
+        tags=ROUTER_RESET_PASSWORD_TAGS,
+        include_in_schema=ROUTER_RESET_PASSWORD_INCLUDE_IN_SCHEMA,
+    )
+
+if ROUTER_VERIFY_INCLUDE:
+    app.include_router(
+        fastapi_users.get_verify_router(),
+        prefix=ROUTER_VERIFY_PREFIX,
+        tags=ROUTER_VERIFY_TAGS,
+        include_in_schema=ROUTER_VERIFY_INCLUDE_IN_SCHEMA,
+    )
+
+if ROUTER_USERS_INCLUDE:
+    app.include_router(
+        fastapi_users.get_users_router(),
+        prefix=ROUTER_USERS_PREFIX,
+        tags=ROUTER_USERS_TAGS,
+        include_in_schema=ROUTER_USERS_INCLUDE_IN_SCHEMA,
+    )
 
 register_tortoise(
     app,
