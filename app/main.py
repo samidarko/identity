@@ -32,7 +32,9 @@ app.add_middleware(
 
 if ROUTER_AUTH_INCLUDE:
     app.include_router(
-        fastapi_users.get_auth_router(jwt_authentication),
+        fastapi_users.get_auth_router(
+            jwt_authentication, requires_verification=ROUTER_AUTH_REQUIRES_VERIFICATION
+        ),
         prefix=ROUTER_AUTH_PREFIX,
         tags=ROUTER_AUTH_TAGS,
         include_in_schema=ROUTER_AUTH_INCLUDE_IN_SCHEMA,
@@ -64,7 +66,9 @@ if ROUTER_VERIFY_INCLUDE:
 
 if ROUTER_USERS_INCLUDE:
     app.include_router(
-        fastapi_users.get_users_router(),
+        fastapi_users.get_users_router(
+            requires_verification=ROUTER_USERS_REQUIRES_VERIFICATION
+        ),
         prefix=ROUTER_USERS_PREFIX,
         tags=ROUTER_USERS_TAGS,
         include_in_schema=ROUTER_USERS_INCLUDE_IN_SCHEMA,
