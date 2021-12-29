@@ -44,7 +44,10 @@ def get_user_manager(user_db: TortoiseUserDatabase = Depends(get_user_db)):
 
 
 jwt_authentication = JWTAuthentication(
-    secret=SECRET, lifetime_seconds=JWT_LIFETIME, tokenUrl="auth/jwt/login"
+    secret=SECRET,
+    lifetime_seconds=JWT_LIFETIME,
+    tokenUrl="auth/jwt/login",
+    token_audience=TOKEN_AUDIENCE,
 )
 
 fastapi_users = FastAPIUsers(
